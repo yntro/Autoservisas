@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card-body p-0">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>License Plate</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for car in car_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'car_details' car.pk %}">{{ car.license_plate }}</a>
+                    </td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.model }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No cars found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

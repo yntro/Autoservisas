@@ -1,6 +1,6 @@
-{%  load static %}
-
 <!DOCTYPE html>
+
+{%  load static %}
 
 <html lang="en">
 <head>
@@ -10,6 +10,7 @@
 <title>Auto Service</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
 <style>
     body {
@@ -47,24 +48,11 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <img
-                src="{% static 'autoservice/images/logo.png' %}"
-                alt = ""
-                width="200"
-                height="100"
-                class="me-2"
-            >
-            Auto Service
-        </a>
-    </div>
-</nav>
+{% include "nav_bar.html" %}
 
 <header class="page-header text-center">
     <div class="container">
-        <h1 class="display-5 fw-bold">Auto Service</h1>
+        <h1 class="display-5 fw-bold">{% block title %}Auto Service{% endblock %}</h1>
         <p class="lead mb-0">Vehicle service management</p>
     </div>
 </header>
