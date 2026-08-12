@@ -14,7 +14,7 @@
         <table class="table table-striped table-hover mb-0">
             <thead class="table-dark">
                 <tr>
-                    <th>Date</th>
+                    <th>Order</th>
                     <th>Car</th>
                     <th>Status</th>
                 </tr>
@@ -24,7 +24,7 @@
                 {% for order in order_list %}
                 <tr>
                     <td>
-                        <a href="{% url 'order_details' order.pk %}">{{ order.date|date:"Y/m/d" }} ID: {{order.id}}</a>
+                        <a href="{% url 'order_details' order.pk %}">{{order}}</a>
                     </td>
                     <td>{{ order.car }}</td>
                     <td>

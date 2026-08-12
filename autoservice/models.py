@@ -6,7 +6,7 @@ class Car(models.Model):
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     license_plate = models.CharField(max_length=6)
-    vin_code = models.CharField(max_length=50)
+    vin_code = models.CharField(max_length=17, unique=True)
     client_name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -42,7 +42,7 @@ class Order(models.Model):
             total += order_line.line_sum()
         return total
     def __str__(self):
-        return f"{self.car.make} {self.car.license_plate} {self.date}"
+        return f"{self.car.vin_code}{self.car.license_plate}{self.date}"
 
 class OrderLine(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
