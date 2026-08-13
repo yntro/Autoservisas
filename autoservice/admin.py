@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Car, Order, Service, OrderLine
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ['vin_code', 'make', 'model', 'license_plate', 'client_name']
+    list_display = ['vin_code', 'make', 'model', 'license_plate', 'client_name', 'has_image']
     search_fields = ['vin_code', 'license_plate']
     list_filter = ['make', 'model', 'license_plate', 'client_name', 'vin_code']
 

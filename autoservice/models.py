@@ -12,6 +12,9 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.make} {self.license_plate} {self.client_name}"
+    @property
+    def has_image(self):
+        return bool(self.image)
     class Meta:
         verbose_name_plural = "Cars"
         verbose_name = "Car"
