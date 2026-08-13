@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 {% extends "base.html" %}
+
+{% load static %}
 {% block title %} {{car}} {% endblock %}
 
 {% block content %}
@@ -34,8 +36,27 @@
                     <td colspan="5" class="text-center">No car found.</td>
                 </tr>
                 {% endif %}
+
             </tbody>
         </table>
+        <div class="card shadow-sm mx-auto mt-4" style="width: 18rem;">
+            <div class="card-header bg-dark text-white text-center">
+                Vehicle Image
+            </div>
+                {% if car.image %}
+                    <div class="card-body text-center">
+                        <img src="{{ car.image.url }}"
+                             class="img-fluid rounded"
+                             alt="">
+                    </div>
+                {% else %}
+                    <div class="card-body text-center">
+                        <img src="{% static 'autoservice/images/No_Image_Available.jpg' %}"
+                             class="img-fluid rounded"
+                             alt="">
+                    </div>
+                {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

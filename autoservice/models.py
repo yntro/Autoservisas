@@ -8,6 +8,7 @@ class Car(models.Model):
     license_plate = models.CharField(max_length=6)
     vin_code = models.CharField(max_length=17, unique=True)
     client_name = models.CharField(max_length=50)
+    image = models.ImageField('image', upload_to="images/", null=True, blank=True)
 
     def __str__(self):
         return f"{self.make} {self.license_plate} {self.client_name}"
@@ -42,7 +43,7 @@ class Order(models.Model):
             total += order_line.line_sum()
         return total
     def __str__(self):
-        return f"{self.car.vin_code}{self.car.license_plate}{self.date}"
+        return f"{self.car.vin_code}-{self.car.license_plate}-{self.date}"
 
 class OrderLine(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -53,7 +54,7 @@ class OrderLine(models.Model):
     def line_sum(self):
         return self.service.price * self.quantity
     def __str__(self):
-        return f"{self.id}"
+        return f"{self.service} x {self.quantity} {self.status}"
 
     class Meta:
         verbose_name_plural = "Order Lines"

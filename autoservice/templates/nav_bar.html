@@ -1,24 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-dark  shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark  shadow-sm navbar-nav">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">
             <i class="bi bi-card-list"></i>
             Home
         </a>
-        <a class="navbar-brand" href="{% url 'autoservice' %}">
+        <a class="nav-link" href="{% url 'autoservice' %}">
             <i class="bi bi-hammer"></i>
             Summary
         </a>
-        <a class="navbar-brand" href="{% url 'services' %}">
+        <a class="nav-link" href="{% url 'services' %}">
             <i class="bi bi-cart3"></i>
             Services
         </a>
-        <a class="navbar-brand" href="{% url 'car_list' %}">
+        <a class="nav-link" href="{% url 'car_list' %}">
             <i class="bi bi-car-front-fill"></i>
             Cars
         </a>
-        <a class="navbar-brand" href="{% url 'order_list' %}">
+        <a class="nav-link" href="{% url 'order_list' %}">
             <i class="bi bi-list-ul"></i>
             Orders
         </a>
+        <form action="{% url 'search' %}" method="get" class="d-flex">
+            <input
+                    name="query"
+                    class="form-control me-2"
+                    type="text"
+                    placeholder="search"
+            >
+            <button class="btn btn-outline-light" type="submit">
+                Search
+            </button>
+        </form>
     </div>
 </nav>

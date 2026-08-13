@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
 {% extends "base.html" %}
-{% load static %}
 
+{% block title %} Search results {% endblock %}
 
 {% block content %}
 
@@ -14,7 +12,6 @@
                     <th>License Plate</th>
                     <th>Make</th>
                     <th>Model</th>
-                    <th>Image</th>
                 </tr>
             </thead>
 
@@ -26,21 +23,6 @@
                     </td>
                     <td>{{ car.make }}</td>
                     <td>{{ car.model }}</td>
-                    <td>
-                        {% if car.image %}
-                        <img src="{{ car.image.url }}"
-                             class="img-thumbnail"
-                             width="50"
-                             height="50"
-                             alt="">
-                        {% else %}
-                        <img src="{% static 'autoservice/images/No_Image_Available.jpg' %}"
-                             class="img-thumbnail"
-                             width="50"
-                             height="50"
-                             alt="">
-                        {% endif %}
-                    </td>
                 </tr>
             {% empty %}
                 <tr>
@@ -53,6 +35,8 @@
     </div>
 </div>
 
-{% include "pagination.html" %}
+{% if page_obj.paginator.num_pages > 1 %}
+    {% include "pagination.html" %}
+{% endif %}
 
 {% endblock %}
