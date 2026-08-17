@@ -7,7 +7,10 @@ from autoservice.models import Car, Service, Order, OrderLine
 
 
 def index(request):
-    completed_orders = sum(order.status for order in Order.objects.all())
+    num_completed_orders = sum(order.status for order in Order.objects.all())
+    num_visits = request.session.get('num_visits', 1)
+    request.session['num_visits'] = num_visits + 1
+
     context = {"cars": Car.objects.all(),
                "services": Service.objects.all(),
                "orders": Order.objects.all(),
@@ -15,7 +18,8 @@ def index(request):
                "num_cars": Car.objects.count(),
                "num_services": Service.objects.count(),
                "num_orders": Order.objects.count(),
-               "completed_orders": completed_orders
+               "completed_orders": num_completed_orders,
+               "num_visits": num_visits,
                }
     return render(request, "index.html", context)
 
@@ -36,7 +40,7 @@ class CarDetailView(generic.DetailView):
     context_object_name = "car"
 
 def order_list(request):
-    paginator = Paginator(Order.objects.all(), 5)
+    paginator = Paginator(Order.objects.all(), 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

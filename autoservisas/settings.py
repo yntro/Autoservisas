@@ -31,15 +31,17 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # media folder settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'library/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'autoservice/media')
 
 MEDIA_URL = '/media/'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'autoservice',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -134,3 +136,8 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+LOGIN_REDIRECT_URL = "/"
