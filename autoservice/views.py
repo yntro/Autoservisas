@@ -21,22 +21,22 @@ def index(request):
                "completed_orders": num_completed_orders,
                "num_visits": num_visits,
                }
-    return render(request, "index.html", context)
+    return render(request, "autoservice/index.html", context)
 
 def services(request):
     services = Service.objects.all()
     context = {"services": services}
-    return render(request, "services.html", context)
+    return render(request, "autoservice/services.html", context)
 
 class CarListView(generic.ListView):
     model = Car
-    template_name = "car_list.html"
+    template_name = "autoservice/car_list.html"
     context_object_name = "car_list"
     paginate_by = 10
 
 class CarDetailView(generic.DetailView):
     model = Car
-    template_name = "car_details.html"
+    template_name = "autoservice/car_details.html"
     context_object_name = "car"
 
 def order_list(request):
@@ -51,7 +51,7 @@ def order_list(request):
                "order_lines": OrderLine.objects.all(),
                "page_obj": page_obj,
     }
-    return render(request, "order_list.html", context)
+    return render(request, "autoservice/order_list.html", context)
 
 def order_details(request, pk):
     order = get_object_or_404(Order, pk=pk)
@@ -59,12 +59,12 @@ def order_details(request, pk):
     context = {"order": order,
                "order_lines": order_lines,
                }
-    return render(request, "order_details.html", context)
+    return render(request, "autoservice/order_details.html", context)
 
 def search(request):
     query = request.GET.get('query')
     if not query:
-        return render(request, "search.html")
+        return render(request, "autoservice/search.html")
     car_search_results = Car.objects.filter(Q(make__icontains=query) |
                                             Q(vin_code__icontains=query) |
                                             Q(license_plate__icontains=query) |
@@ -76,4 +76,4 @@ def search(request):
         "query": query,
         "car_list": car_search_results,
     }
-    return render(request, "search.html", context)
+    return render(request, "autoservice/search.html", context)
