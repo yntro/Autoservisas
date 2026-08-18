@@ -55,6 +55,12 @@
                     </div>
                 {% endif %}
         </div>
+        <div class="card shadow-sm mx-auto mt-4" style="width: 18rem;">
+            <div class="card-header bg-dark text-white text-center">
+                Vehicle description
+            </div>
+                {{ car.description | safe }}
+        </div>
     </div>
 </div>
 {% endblock %}

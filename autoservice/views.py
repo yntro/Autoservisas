@@ -1,10 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views import View, generic
 
 from autoservice.models import Car, Service, Order, OrderLine
-
 
 def index(request):
     num_completed_orders = sum(order.status for order in Order.objects.all())
@@ -77,3 +77,11 @@ def search(request):
         "car_list": car_search_results,
     }
     return render(request, "autoservice/search.html", context)
+
+class ClientOrderListView(LoginRequiredMixin, generic.ListView):
+    model = Order
+    template_name = "autoservice/myorders.html"
+    context_object_name = "client_order_list"
+
+    def get_queryset(self):
+        return Order.objects.filter(client=self.request.user)

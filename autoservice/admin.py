@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Car, Order, Service, OrderLine
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ['vin_code', 'make', 'model', 'license_plate', 'client_name', 'has_image']
+    list_display = ['vin_code', 'make', 'model', 'license_plate', 'client_name', 'has_image', 'description']
     search_fields = ['vin_code', 'license_plate']
     list_filter = ['make', 'model', 'license_plate', 'client_name', 'vin_code']
 
@@ -11,7 +11,7 @@ class OrderLineInline(admin.TabularInline):
     extra = 1
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['car', 'date','order_lines', 'total', 'status']
+    list_display = ['car', 'date', 'due_date', 'order_lines', 'total', 'status', 'client']
     inlines = [OrderLineInline]
 
     def order_lines(self, obj):

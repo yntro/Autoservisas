@@ -19,6 +19,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>Date</th>
+                    <th>Due date</th>
                     <th>Car</th>
                     <th>Total</th>
                     <th>Status</th>
@@ -29,11 +30,14 @@
                 {% if order %}
                 <tr>
                     <td>{{ order.date }}</td>
+                    <td>{{ order.due_date }}</td>
                     <td>{{ order.car }}</td>
                     <td>{{ order.total }} €</td>
                     <td>
                         {% if order.status %}
                             <span class="badge bg-success">Completed</span>
+                        {% elif order.is_overdue %}
+                            <span class="badge bg-danger text-dark">Overdue</span>
                         {% else %}
                             <span class="badge bg-warning text-dark">In progress</span>
                         {% endif %}
