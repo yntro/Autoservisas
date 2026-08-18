@@ -25,6 +25,8 @@
                     <td>
                         {% if order.status %}
                             <span class="badge bg-success">Completed</span>
+                        {% elif order.is_overdue %}
+                            <span class="badge bg-danger text-dark">Overdue</span>
                         {% else %}
                             <span class="badge bg-warning text-dark">In progress</span>
                         {% endif %}

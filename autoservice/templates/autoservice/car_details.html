@@ -59,7 +59,11 @@
             <div class="card-header bg-dark text-white text-center">
                 Vehicle description
             </div>
-                {{ car.description | safe }}
+                {% if car.description %}
+                    {{ car.description | safe }}
+                {% else %}
+                <p class="text-center">No description.</p>
+                {% endif %}
         </div>
     </div>
 </div>
