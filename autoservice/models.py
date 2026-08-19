@@ -5,7 +5,6 @@ from datetime import timedelta
 from django.db import models
 from tinymce.models import HTMLField
 
-
 class Car(models.Model):
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
@@ -76,3 +75,25 @@ class OrderLine(models.Model):
     class Meta:
         verbose_name_plural = "Order Lines"
         verbose_name = "Order Line"
+
+class CarReview(models.Model):
+    car = models.ForeignKey(to="Car", verbose_name="Car", on_delete=models.SET_NULL, null=True, blank=True, related_name="reviews")
+    reviewer = models.ForeignKey(to=User, verbose_name="Reviewer", on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(verbose_name="Date Created", default=timezone.now)
+    content = models.TextField(verbose_name="Reviews", max_length=500)
+
+    class Meta:
+        verbose_name_plural = "Car Reviews"
+        verbose_name = "Car Review"
+        ordering = ["-date_created"]
+
+class OrderNotes(models.Model):
+    order = models.ForeignKey(to="Order", verbose_name="Order", on_delete=models.SET_NULL, null=True, blank=True, related_name="notes")
+    reviewer = models.ForeignKey(to=User, verbose_name="Reviewer", on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(verbose_name="Date Created", default=timezone.now)
+    content = models.TextField(verbose_name="Notes", max_length=500)
+
+    class Meta:
+        verbose_name_plural = "Order Notes"
+        verbose_name = "Order Note"
+        ordering = ["-date_created"]

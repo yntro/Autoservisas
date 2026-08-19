@@ -65,6 +65,27 @@
                 <p class="text-center">No description.</p>
                 {% endif %}
         </div>
+        <div class="card shadow-sm mx-auto mt-4" style="width: 18rem;">
+            <div class="card-header bg-dark text-white text-center">
+                Reviews
+            </div>
+            {% if car.reviews.all %}
+                {% for review in car.reviews.all %}
+                    <p><strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created }}</em></p>
+                    <p>{{ review.content }}</p>
+                {% endfor %}
+            {% else %}
+            <p class="text-center">No description.</p>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <form method="post" class="mb-2 text-center">
+                {% csrf_token %}
+                {% load crispy_forms_tags %}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

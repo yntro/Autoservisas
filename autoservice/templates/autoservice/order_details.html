@@ -13,45 +13,45 @@
         <h2 class="h4 mb-0">Order</h2>
     </div>
 
-<div class="card-body p-0">
-    <div class="table-responsive">
-        <table class="table table-striped table-hover mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>Date</th>
-                    <th>Due date</th>
-                    <th>Car</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Due date</th>
+                        <th>Car</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {% if order %}
-                <tr>
-                    <td>{{ order.date }}</td>
-                    <td>{{ order.due_date }}</td>
-                    <td>{{ order.car }}</td>
-                    <td>{{ order.total }} €</td>
-                    <td>
-                        {% if order.status %}
-                            <span class="badge bg-success">Completed</span>
-                        {% elif order.is_overdue %}
-                            <span class="badge bg-danger text-dark">Overdue</span>
-                        {% else %}
-                            <span class="badge bg-warning text-dark">In progress</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="4" class="text-center">No orders found.</td>
-                </tr>
-                {% endif %}
-            </tbody>
-        </table>
+                <tbody>
+                    {% if order %}
+                    <tr>
+                        <td>{{ order.date }}</td>
+                        <td>{{ order.due_date }}</td>
+                        <td>{{ order.car }}</td>
+                        <td>{{ order.total }} €</td>
+                        <td>
+                            {% if order.status %}
+                                <span class="badge bg-success">Completed</span>
+                            {% elif order.is_overdue %}
+                                <span class="badge bg-danger text-dark">Overdue</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">In progress</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No orders found.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
 </div>
 
@@ -60,42 +60,65 @@
         <h2 class="h4 mb-0">Services</h2>
     </div>
 
-<div class="card-body p-0">
-    <div class="table-responsive">
-        <table class="table table-striped table-hover mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>Order</th>
-                    <th>Service</th>
-                    <th>Quantity</th>
-                    <th>Total for service</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Order</th>
+                        <th>Service</th>
+                        <th>Quantity</th>
+                        <th>Total for service</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {% for line in order_lines %}
-                <tr>
-                    <td>{{ line.order }}</td>
-                    <td>{{ line.service }}</td>
-                    <td>{{ line.quantity }}</td>
-                    <td>{{ line.line_sum }} €</td>
-                    <td>
-                        {% if line.status %}
-                            <span class="badge bg-success">Completed</span>
-                        {% else %}
-                            <span class="badge bg-warning text-dark">In progress</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center">No order lines found.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                <tbody>
+                    {% for line in order_lines %}
+                    <tr>
+                        <td>{{ line.order }}</td>
+                        <td>{{ line.service }}</td>
+                        <td>{{ line.quantity }}</td>
+                        <td>{{ line.line_sum }} €</td>
+                        <td>
+                            {% if line.status %}
+                                <span class="badge bg-success">Completed</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">In progress</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No order lines found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<div class="card shadow-sm mx-auto mt-4" style="width: 18rem;">
+    <div class="card-header bg-dark text-white text-center">
+        Notes
+    </div>
+        {% if order.notes.all %}
+            {% for note in order.notes.all %}
+                <p><strong>{{ note.reviewer }}</strong>, <em>{{ note.date_created }}</em></p>
+                <p>{{ note.content }}</p>
+            {% endfor %}
+        {% else %}
+        <p class="text-center">No description.</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <form method="post" class="mb-2 text-center">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        {% endif %}
 </div>
+
 {% endblock %}
