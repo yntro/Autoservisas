@@ -1,14 +1,14 @@
-from .models import CarReview, OrderNotes
+from .models import CarComments, OrderComments
 from django import forms
 
-class CarReviewForm(forms.ModelForm):
+class CarCommentsForm(forms.ModelForm):
     class Meta:
-        model = CarReview
+        model = CarComments
         fields = ['content']
         labels = {'content': ''}
 
-class OrderNoteForm(forms.ModelForm):
+class OrderCommentsForm(forms.ModelForm):
     class Meta:
-        model = OrderNotes
+        model = OrderComments
         fields = ['content']
         labels = {'content': ''}

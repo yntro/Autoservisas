@@ -69,10 +69,10 @@
             <div class="card-header bg-dark text-white text-center">
                 Reviews
             </div>
-            {% if car.reviews.all %}
-                {% for review in car.reviews.all %}
-                    <p><strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created }}</em></p>
-                    <p>{{ review.content }}</p>
+            {% if car.comments.all %}
+                {% for comment in car.comments.all %}
+                    <p><strong>{{ comment.user }}</strong>, <em>{{ comment.date_created }}</em></p>
+                    <p>{{ comment.content }}</p>
                 {% endfor %}
             {% else %}
             <p class="text-center">No description.</p>

@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404, reverse
-from .forms import CarReviewForm, OrderNoteForm
+from .forms import CarCommentsForm, OrderCommentsForm
 from django.views.generic.edit import FormMixin
 from django.views import View, generic
 from django.urls import reverse_lazy
@@ -41,7 +41,7 @@ class CarDetailView(FormMixin, generic.DetailView):
     model = Car
     template_name = "autoservice/car_details.html"
     context_object_name = "car"
-    form_class = CarReviewForm
+    form_class = CarCommentsForm
 
     def get_success_url(self):
         return reverse("car_details", kwargs={"pk": self.object.id})
@@ -56,7 +56,7 @@ class CarDetailView(FormMixin, generic.DetailView):
 
     def form_valid(self, form):
         form.instance.car = self.get_object()
-        form.instance.reviewer = self.request.user
+        form.instance.user = self.request.user
         form.save()
         return super().form_valid(form)
 
@@ -64,7 +64,7 @@ class OrderDetailsView(FormMixin, generic.DetailView):
     model = Order
     template_name = "autoservice/order_details.html"
     context_object_name = "order"
-    form_class = OrderNoteForm
+    form_class = OrderCommentsForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,7 +84,7 @@ class OrderDetailsView(FormMixin, generic.DetailView):
 
     def form_valid(self, form):
         form.instance.order = self.get_object()
-        form.instance.reviewer = self.request.user
+        form.instance.user = self.request.user
         form.save()
         return super().form_valid(form)
 

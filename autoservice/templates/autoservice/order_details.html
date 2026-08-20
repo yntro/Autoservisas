@@ -103,10 +103,10 @@
     <div class="card-header bg-dark text-white text-center">
         Notes
     </div>
-        {% if order.notes.all %}
-            {% for note in order.notes.all %}
-                <p><strong>{{ note.reviewer }}</strong>, <em>{{ note.date_created }}</em></p>
-                <p>{{ note.content }}</p>
+        {% if order.comments.all %}
+            {% for comment in order.comments.all %}
+                <p><strong>{{ comment.user }}</strong>, <em>{{ comment.date_created }}</em></p>
+                <p>{{ comment.content }}</p>
             {% endfor %}
         {% else %}
         <p class="text-center">No description.</p>

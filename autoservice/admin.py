@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, Order, Service, OrderLine, CarReview, OrderNotes
+from .models import Car, Order, Service, OrderLine, CarComments, OrderComments
 
 class CarAdmin(admin.ModelAdmin):
     list_display = ['vin_code', 'make', 'model', 'license_plate', 'client_name', 'has_image', 'description']
@@ -25,15 +25,15 @@ class ServiceAdmin(admin.ModelAdmin):
 class OrderLineAdmin(admin.ModelAdmin):
     list_display = ['order', 'service', 'quantity', 'line_sum', 'status']
 
-class CarReviewAdmin(admin.ModelAdmin):
-    list_display = ['car', 'date_created', 'reviewer', 'content']
+class CarCommentsAdmin(admin.ModelAdmin):
+    list_display = ['car', 'date_created', 'user', 'content']
 
-class OrderNoteAdmin(admin.ModelAdmin):
-    list_display = ['order', 'date_created', 'reviewer', 'content']
+class OrderCommentsAdmin(admin.ModelAdmin):
+    list_display = ['order', 'date_created', 'user', 'content']
 
 admin.site.register(Car, CarAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(OrderLine, OrderLineAdmin)
-admin.site.register(CarReview, CarReviewAdmin)
-admin.site.register(OrderNotes, OrderNoteAdmin)
+admin.site.register(CarComments, CarCommentsAdmin)
+admin.site.register(OrderComments, OrderCommentsAdmin)

@@ -76,24 +76,24 @@ class OrderLine(models.Model):
         verbose_name_plural = "Order Lines"
         verbose_name = "Order Line"
 
-class CarReview(models.Model):
-    car = models.ForeignKey(to="Car", verbose_name="Car", on_delete=models.SET_NULL, null=True, blank=True, related_name="reviews")
-    reviewer = models.ForeignKey(to=User, verbose_name="Reviewer", on_delete=models.SET_NULL, null=True, blank=True)
+class CarComments(models.Model):
+    car = models.ForeignKey(to="Car", verbose_name="Car", on_delete=models.SET_NULL, null=True, blank=True, related_name="comments")
+    user = models.ForeignKey(to=User, verbose_name="User", on_delete=models.SET_NULL, null=True, blank=True)
     date_created = models.DateTimeField(verbose_name="Date Created", default=timezone.now)
-    content = models.TextField(verbose_name="Reviews", max_length=500)
+    content = models.TextField(verbose_name="Car comments", max_length=500)
 
     class Meta:
-        verbose_name_plural = "Car Reviews"
-        verbose_name = "Car Review"
+        verbose_name_plural = "Car comments"
+        verbose_name = "Car comment"
         ordering = ["-date_created"]
 
-class OrderNotes(models.Model):
-    order = models.ForeignKey(to="Order", verbose_name="Order", on_delete=models.SET_NULL, null=True, blank=True, related_name="notes")
-    reviewer = models.ForeignKey(to=User, verbose_name="Reviewer", on_delete=models.SET_NULL, null=True, blank=True)
+class OrderComments(models.Model):
+    order = models.ForeignKey(to="Order", verbose_name="Order", on_delete=models.SET_NULL, null=True, blank=True, related_name="comments")
+    user = models.ForeignKey(to=User, verbose_name="User", on_delete=models.SET_NULL, null=True, blank=True)
     date_created = models.DateTimeField(verbose_name="Date Created", default=timezone.now)
-    content = models.TextField(verbose_name="Notes", max_length=500)
+    content = models.TextField(verbose_name="Order comments", max_length=500)
 
     class Meta:
-        verbose_name_plural = "Order Notes"
-        verbose_name = "Order Note"
+        verbose_name_plural = "Order comments"
+        verbose_name = "Order comment"
         ordering = ["-date_created"]
